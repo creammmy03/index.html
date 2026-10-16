@@ -156,7 +156,7 @@ struct TimetableGrid: View {
 
         VStack(spacing: 6) {
             HStack(spacing: 2) {
-                Color.clear.frame(width: 26)
+                Color.clear.frame(width: 26, height: 0)
                 ForEach(weekdays, id: \.self) { wd in
                     Text(Fmt.weekdaySymbols[wd - 1])
                         .font(.caption.weight(.semibold))

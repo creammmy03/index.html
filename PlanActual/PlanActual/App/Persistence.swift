@@ -21,7 +21,10 @@ enum PersistenceController {
         let hasGroup = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupID) != nil
         let group: ModelConfiguration.GroupContainer = hasGroup ? .identifier(groupID) : .none
 
-        if iCloudEnabled, let cloudID = cloudKitContainerID {
+        // iCloud 엔타이틀먼트가 없거나(무료 계정 · 서명 안 한 빌드) iCloud에 로그인하지 않았으면 토큰이 nil이에요.
+        // 이때 CloudKit을 켜면 CKContainer가 앱을 바로 멈추게 하니, 기기 안 저장소로 가요.
+        let iCloudAvailable = FileManager.default.ubiquityIdentityToken != nil
+        if iCloudEnabled, iCloudAvailable, let cloudID = cloudKitContainerID {
             let config = ModelConfiguration("PlanActual", schema: schema, groupContainer: group, cloudKitDatabase: .private(cloudID))
             if let container = try? ModelContainer(for: schema, configurations: [config]) {
                 return container

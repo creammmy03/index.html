@@ -162,9 +162,9 @@ struct ReplanSheet: View {
                     }
 
                     HStack(spacing: 0) {
-                        Color.clear.frame(width: 40)
+                        Color.clear.frame(width: 40, height: 0)
                         Text("지금").frame(maxWidth: .infinity, alignment: .leading)
-                        Color.clear.frame(width: 8)
+                        Color.clear.frame(width: 8, height: 0)
                         Text("바뀐 후").frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .font(.caption.weight(.semibold))

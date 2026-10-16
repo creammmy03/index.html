@@ -107,7 +107,7 @@ struct WeekScreen: View {
 
     private var dayHeader: some View {
         HStack(spacing: 2) {
-            Color.clear.frame(width: 26)
+            Color.clear.frame(width: 26, height: 0)
             ForEach(days, id: \.self) { d in
                 let isToday = DayClock.isSameDay(d, today)
                 let rate = summaries.first { $0.dayKey == DayClock.dayKey(d) }?.matchRate

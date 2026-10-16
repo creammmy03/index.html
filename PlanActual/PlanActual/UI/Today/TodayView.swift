@@ -142,7 +142,8 @@ struct DayScreen: View {
                         .frame(height: m.metrics.totalHeight)
                         .overlay(alignment: .top) {
                             if m.items.isEmpty && day >= DayClock.calendar.startOfDay(for: today) {
-                                emptyPlanCard.padding(.top, max(8, m.metrics.y(now) - 40))
+                                // 하루 끝 무렵이면 카드가 타임라인 밖(하루 마감 버튼 위)으로 넘치지 않게 끝에서 멈춰요.
+                                emptyPlanCard.padding(.top, max(8, min(m.metrics.y(now) - 40, m.metrics.totalHeight - 180)))
                             }
                         }
                         if day <= today {
@@ -289,9 +290,9 @@ struct DayScreen: View {
 
     private var columnLabels: some View {
         HStack(spacing: 0) {
-            Color.clear.frame(width: 52)
+            Color.clear.frame(width: 52, height: 0)
             Text("계획").frame(maxWidth: .infinity, alignment: .leading).padding(.leading, 2)
-            Color.clear.frame(width: 16)
+            Color.clear.frame(width: 16, height: 0)
             Text("실제").frame(maxWidth: .infinity, alignment: .leading).padding(.leading, 2)
         }
         .font(.caption.weight(.semibold))
